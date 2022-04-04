@@ -9,13 +9,13 @@
 // if at least one criteria was selected then the random password will generate in the text area
 
 var getPasswordLength = function() {
-  var length = ""
-  while (length === "" || length === null || length < 8 || length > 128) {
-    length = prompt("How many characters will the password have? Please enter a number between 8 and 128.");
+  var passwordlength = ""
+  while (passwordlength === "" || passwordlength === null || passwordlength < 8 || passwordlength > 128) {
+    passwordlength = prompt("How many characters will the password have? Please enter a number between 8 and 128.");
   }
-  length = parseInt(length);
-  console.log("the password will have " + length + " characters.");
-  return length;
+  passwordlength = parseInt(passwordlength);
+  console.log("the password will have " + passwordlength + " characters.");
+  return passwordlength;
 }
 
 var getPasswordLowercase = function() {
@@ -56,12 +56,42 @@ var getPasswordSpecial = function() {
 
 function generatePassword() {
   var passwordCriteria = {
-    length: getPasswordLength(),
+    passwordlength: getPasswordLength(),
     lowercase: getPasswordLowercase(),
     uppercase: getPasswordUppercase(),
     numeric: getPasswordNumeric(),
     special: getPasswordSpecial(),
+    reset: function() {
+      this.passwordlength = "";
+      this.lowercase = "";
+      this.uppercase = "";
+      this.numeric = "";
+      this.special = "";
+    }
   }
+  var lowerAlphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+  var upperAlphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+  var numericValues = [0,1,2,3,4,5,6,7,8,9];
+  var specialCharacters = ["!","#","$","%","&","*","+","-",".","/","<","=",">","?","@"];
+  var usedCharacters = [];
+  if (!passwordCriteria.lowercase && !passwordCriteria.uppercase && !passwordCriteria.numeric && !passwordCriteria.special) {
+    window.alert("You must include at least one type of character in your password!");
+    generatePassword();
+  }
+  if (passwordCriteria.lowercase) {
+    usedCharacters = usedCharacters.concat(lowerAlphabet);
+  }
+  if (passwordCriteria.uppercase) {
+    usedCharacters = usedCharacters.concat(upperAlphabet);
+  }
+  if (passwordCriteria.numeric) {
+    usedCharacters = usedCharacters.concat(numericValues);
+  }
+  if (passwordCriteria.special) {
+    usedCharacters = usedCharacters.concat(specialCharacters);
+  }
+  console.log(usedCharacters);
+  
 }
 
 // Get references to the #generate element
@@ -88,10 +118,11 @@ generateBtn.addEventListener("click", writePassword);
 
 
 //if length < passwordCriteria.length {
-  //random number function here
+ 
   //function (
    // array = {uppercase, lowercase, number, special}
    // random function to pick which array
+   // random function to pick random value from within that array
    // )
 
   //return to array to add password to
