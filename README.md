@@ -11,4 +11,4 @@ A website that will generate a random password between 8 and 128 characters depe
 ## Website 
 https://yoli19.github.io/password-generator/
 
-![here is what the webpage looks like]()
+![here is what the webpage looks like](./Develop/assets/images/website.png)
