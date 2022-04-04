@@ -61,19 +61,13 @@ function generatePassword() {
     uppercase: getPasswordUppercase(),
     numeric: getPasswordNumeric(),
     special: getPasswordSpecial(),
-    reset: function() {
-      this.passwordlength = "";
-      this.lowercase = "";
-      this.uppercase = "";
-      this.numeric = "";
-      this.special = "";
-    }
   }
   var lowerAlphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
   var upperAlphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
   var numericValues = [0,1,2,3,4,5,6,7,8,9];
   var specialCharacters = ["!","#","$","%","&","*","+","-",".","/","<","=",">","?","@"];
   var usedCharacters = [];
+  var passwordarray = [];
   if (!passwordCriteria.lowercase && !passwordCriteria.uppercase && !passwordCriteria.numeric && !passwordCriteria.special) {
     window.alert("You must include at least one type of character in your password!");
     generatePassword();
@@ -91,7 +85,13 @@ function generatePassword() {
     usedCharacters = usedCharacters.concat(specialCharacters);
   }
   console.log(usedCharacters);
-  
+  while (passwordarray.length < passwordCriteria.passwordlength) {
+    const random = Math.floor(Math.random() * usedCharacters.length);
+    console.log(usedCharacters[random]);
+    passwordarray.push(usedCharacters[random]);
+  } 
+  let finalPassword = passwordarray.join("");
+  return finalPassword;
 }
 
 // Get references to the #generate element
@@ -103,30 +103,7 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-
-
-//uppercase = {"A,B,C,D,E,..."}
-//numeric = {1,2,3,4,5,6,7,8,9,0}
-//lowercase = {a,b,c,d,e...}
-//special = {!,@,#,$,...}
-
-
-//if length < passwordCriteria.length {
- 
-  //function (
-   // array = {uppercase, lowercase, number, special}
-   // random function to pick which array
-   // random function to pick random value from within that array
-   // )
-
-  //return to array to add password to
-
-//} else {
- // return password array contents
-//}
